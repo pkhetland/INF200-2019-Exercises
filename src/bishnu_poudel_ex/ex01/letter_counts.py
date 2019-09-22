@@ -5,12 +5,12 @@ __email__ = "bishnu.poudel@nmbu.no"
 
 def letter_freq(txt):
     new_dict = dict()
-    for i in range(len(txt)):
-        if txt[i] in new_dict.keys():
-            # print("TRUE")
-            new_dict[txt[i]] = new_dict[txt[i]] + 1
+    for char in txt:
+        char=char.lower()
+        if char in new_dict.keys():
+            new_dict[char] +=1
         else:
-            new_dict[txt[i]] = 1
+            new_dict[char] = 1
     return new_dict
 
 

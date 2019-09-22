@@ -15,15 +15,6 @@ def squares_by_loop(n):
     return listk2
 
 
-# Checking the output---
-# a=squares_by_comp(10)
-# print(a)
-# print("-----------------------------------------------------------------------------")
-# print("-----------------------------------------------------------------------------")
-# print("-----------------------------------------------------------------------------")
-# b=squares_by_loop(10)
-# print(b)
-
 if __name__ == '__main__':
     if squares_by_comp(10) != squares_by_loop(10):
         print('ERROR!')

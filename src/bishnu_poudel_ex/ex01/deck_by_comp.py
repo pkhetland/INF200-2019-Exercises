@@ -15,19 +15,8 @@ def deck_loop():
 
 
 def deck_comp():
-    deck = []
-    [deck.append((suit, val)) for suit in SUITS for val in VALUES]
-    return deck
-
-
-# Checking the output---
-# a=deck_loop()
-# print(a)
-# print("-----------------------------------------------------------------------------")
-# print("-----------------------------------------------------------------------------")
-# print("-----------------------------------------------------------------------------")
-# b=deck_comp()
-# print(b)
+    return [(suit, val) for suit in SUITS for val in VALUES]
+    
 
 if __name__ == '__main__':
     if deck_loop() != deck_comp():
