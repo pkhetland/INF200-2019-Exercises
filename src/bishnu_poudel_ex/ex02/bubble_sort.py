@@ -1,3 +1,8 @@
+""" Bubble sort for Assignment 2"""
+__author__ = "Bishnu Poudel"
+__email__ = "bishnu.poudel@nmbu.no"
+
+
 def bubble_sort(data1):
     data=list(data1)
     end = len(data)
@@ -12,9 +17,6 @@ def bubble_sort(data1):
                     data[i + 1] = data[i]
                     data[i] = temp
     return data
-
-
-# print( bubble_sort([1,2,4,2,1]) )
 
 
 if __name__ == "__main__":

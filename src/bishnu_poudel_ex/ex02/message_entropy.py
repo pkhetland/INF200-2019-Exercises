@@ -1,3 +1,7 @@
+""" Message entropy -for Assignment 2"""
+__author__ = "Bishnu Poudel"
+__email__ = "bishnu.poudel@nmbu.no"
+
 import math
 
 def letter_freq(txt):
@@ -20,7 +24,7 @@ def entropy(message):
     for i in result_freq.values():
         entr=entr+ (i/sum_values) *math.log((i/sum_values),2)  # multiplying probability with its log 2 value and summing up
 
-    return entr
+    return -1*entr
 
 
 if __name__ == "__main__":

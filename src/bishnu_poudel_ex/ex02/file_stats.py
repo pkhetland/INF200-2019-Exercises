@@ -1,3 +1,7 @@
+""" count character frequencies -for Assignment 2"""
+__author__ = "Bishnu Poudel"
+__email__ = "bishnu.poudel@nmbu.no"
+
 import io
 
 
@@ -12,12 +16,9 @@ def char_counts(text_file_name):
     return utf_code_list
 
 
-ans = char_counts("ipconfig_all.txt")
-print(ans)
-
 if __name__ == '__main__':
 
-    filename = 'ipconfig_all.txt'
+    filename = 'message_entropy.py'
     frequencies = char_counts(filename)
     for code in range(256):
         if frequencies[code] > 0:
