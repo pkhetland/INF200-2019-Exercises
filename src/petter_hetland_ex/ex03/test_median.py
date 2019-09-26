@@ -4,6 +4,10 @@ __author__ = "Petter Hetland"
 __email__ = "pehe@nmbu.no"
 
 
+# Import pytest
+import pytest
+
+
 # Median function sourced from ex03.rst authored by Yngve Mardal Moe
 def median(data):
     """
@@ -59,3 +63,25 @@ def test_ordered_variations():
     data_2_median = median(data_2)
     data_3_median = median(data_3)
     assert data_1_median and data_2_median and data_3_median == 3
+
+
+def test_empty_list():
+    """ Tests that a IndexError is raised when
+    the length of the given list is 0
+    """
+    data = []
+    with pytest.raises(IndexError):
+        assert median(data)
+
+
+def test_original_data():
+    """ Tests that the median-function does not
+    alter the original list of data
+    """
+    pass
+
+
+def test_tuples():
+    """ Tests that the function works for tuples as well as lists
+    """
+    pass
