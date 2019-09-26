@@ -8,9 +8,9 @@ import math
 def letter_freq(txt):
     new_dict = dict()
     for char in txt:
-        char=char.lower()
+        char = char.lower()
         if char in new_dict.keys():
-            new_dict[char] +=1
+            new_dict[char] += 1
         else:
             new_dict[char] = 1
     return new_dict
