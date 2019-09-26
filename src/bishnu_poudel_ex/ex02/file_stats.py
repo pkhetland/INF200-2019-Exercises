@@ -12,12 +12,11 @@ def char_counts(text_file_name):
     utf_code_list = [0] * 256
     for ch in text:
         utf_code = ord(ch)
-        utf_code_list[utf_code] = utf_code_list[utf_code]+1
+        utf_code_list[utf_code] += 1
     return utf_code_list
 
 
 if __name__ == '__main__':
-
     filename = 'test.txt'
     frequencies = char_counts(filename)
     for code in range(256):
