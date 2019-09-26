@@ -19,10 +19,13 @@ def median(data):
 
     sdata = sorted(data)
     n = len(sdata)
-    return (
-        sdata[n // 2] if n % 2 == 1
-        else 0.5 * (sdata[n // 2 - 1] + sdata[n // 2])
-    )
+    if n % 2 == 1:
+        return sdata[n // 2]
+    elif n < 1:
+        raise ValueError("The list or tuple needs to" +
+                         " contain at least one element")
+    else:
+        return 0.5 * (sdata[n // 2 - 1] + sdata[n // 2])
 
 
 def test_one_element_list():
@@ -70,7 +73,7 @@ def test_empty_list():
     the length of the given list is 0
     """
     data = []
-    with pytest.raises(IndexError):
+    with pytest.raises(ValueError):
         assert median(data)
 
 
