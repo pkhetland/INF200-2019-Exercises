@@ -78,7 +78,9 @@ def test_original_data():
     """ Tests that the median-function does not
     alter the original list of data
     """
-    pass
+    data = [4, 5, 7, 6]
+    data_median = median(data)
+    assert data == [4, 5, 7, 6]
 
 
 def test_tuples():
