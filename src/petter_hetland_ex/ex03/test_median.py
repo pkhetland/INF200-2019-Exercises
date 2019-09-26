@@ -86,4 +86,6 @@ def test_original_data():
 def test_tuples():
     """ Tests that the function works for tuples as well as lists
     """
-    pass
+    tuple_data = (2, 4, 6, 8, 10)
+    tuple_data_median = median(tuple_data)
+    assert tuple_data_median == 6
