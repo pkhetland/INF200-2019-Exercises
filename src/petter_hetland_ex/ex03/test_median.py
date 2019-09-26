@@ -52,4 +52,10 @@ def test_ordered_variations():
     """ Tests that the correct median is returned for lists with ordered,
     reverse-ordered and unordered elements
     """
-    pass
+    data_1 = [1, 2, 3, 4, 5]
+    data_2 = [5, 4, 3, 2, 1]
+    data_3 = [4, 2, 3, 5, 1]
+    data_1_median = median(data_1)
+    data_2_median = median(data_2)
+    data_3_median = median(data_3)
+    assert data_1_median and data_2_median and data_3_median == 3
