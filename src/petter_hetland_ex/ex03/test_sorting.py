@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-__author__ = 'Petter Hetland'
-__email__ = 'pehe@nmbu.no'
+__author__ = "Petter Hetland"
+__email__ = "pehe@nmbu.no"
 
 
 def bubble_sort(list_or_tuple):
@@ -100,7 +100,7 @@ def test_sorting():
     """
     data_1 = [5, 7, 4, 2, 8]
     data_2 = [8, 5]
-    data_3 = ['F', 'U', 'B', 'A', 'R']
+    data_3 = ["F", "U", "B", "A", "R"]
     sorted_data_1 = bubble_sort(data_1)
     sorted_data_2 = bubble_sort(data_2)
     sorted_data_3 = bubble_sort(data_3)
@@ -108,4 +108,3 @@ def test_sorting():
     assert sorted_data_1 == sorted(data_1)
     assert sorted_data_2 == sorted(data_2)
     assert sorted_data_3 == sorted(data_3)
-
