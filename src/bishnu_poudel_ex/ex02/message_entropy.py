@@ -17,14 +17,14 @@ def letter_freq(txt):
 
 
 def entropy(message):
-    result_freq = letter_freq(message)  # The function above returns a dictionary
+    result_freq = letter_freq(message)
     sum_values = 0
-    for i in result_freq.values():  # taking the sum of all the values. i.e. finding N- total characters in the text
+    for i in result_freq.values():
         sum_values = sum_values + i
     entr = 0
     for i in result_freq.values():
         entr = entr + (i / sum_values) * math.log((i / sum_values),
-                                                  2)  # multiplying probability with its log 2 value and summing up
+                                                  2)
 
     return -1 * entr
 
