@@ -1,26 +1,28 @@
+""" Message entropy -for Assignment 2"""
+__author__ = "Bishnu Poudel"
+__email__ = "bishnu.poudel@nmbu.no"
+
 import math
+
 
 def letter_freq(txt):
     new_dict = dict()
-    for i in range(len(txt)):
-        if txt[i] in new_dict.keys():
-            # print("TRUE")
-            new_dict[txt[i]] = new_dict[txt[i]] + 1
+    for char in txt:
+        char = char.lower()
+        if char in new_dict.keys():
+            new_dict[char] += 1
         else:
-            new_dict[txt[i]] = 1
+            new_dict[char] = 1
     return new_dict
 
 
 def entropy(message):
-    result_freq=letter_freq(message)  # The function above returns a dictionary
-    sum_values=0
-    for i in result_freq.values():  # taking the sum of all the values. i.e. finding N- total characters in the text
-        sum_values=sum_values+i
+    result_freq = letter_freq(message)
+    sum_values = len(message)
     entr = 0
     for i in result_freq.values():
-        entr=entr+ (i/sum_values) *math.log((i/sum_values),2)  # multiplying probability with its log 2 value and summing up
-
-    return entr
+        entr = entr + (i / sum_values) * math.log2(i / sum_values)
+    return -1 * entr
 
 
 if __name__ == "__main__":
