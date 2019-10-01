@@ -1,16 +1,13 @@
+# -*- coding: utf-8 -*-
+
 __author__ = "petter hetland"
 __email__ = "pehe@nmbu.no"
 
-"""
-Then write code for the ``char_counts()`` function that opens the file
-with the given ``filename`` using encoding ``utf-8`` and reads the
-entire file content into a single string. It shall then count how often
-each character code (0–255) occurs in the string and return the result
-as a list or tuple, where ``result[i]`` gives the number of occurrences
-of character code ``i``."""
-
 
 def char_counts(textfilename):
+    """ Opens a given file and uses UTF-8 to count the amount
+    of occurences of each element in the given file.
+    """
     with open(textfilename, "r") as f:
         string = f.read()
         result = [string.count(chr(i)) for i in range(256)]
@@ -18,12 +15,17 @@ def char_counts(textfilename):
         return result
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
+    filename = 'file_to_be_read.txt'
+    frequencies = char_counts(filename)
+    for code in range(256):
+        if frequencies[code] > 0:
+            character = ''
+            if code >= 32:
+                character = chr(code)
 
-    def entropy(message):
-        pass
-
-
-if __name__ == "__main__":
-    for msg in "", "aaaa", "aaba", "abcd", "This is a short text.":
-        print("{:25}: {:8.3f} bits".format(msg, entropy(msg)))
+            print(
+                '{:3}{:>4}{:6}'.format(
+                    code, character, frequencies[code]
+                )
+            )

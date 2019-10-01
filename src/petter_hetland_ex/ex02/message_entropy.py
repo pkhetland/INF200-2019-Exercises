@@ -1,7 +1,9 @@
-import math
+# -*- coding: utf-8 -*-
 
 __author__ = "petter hetland"
 __email__ = "pehe@nmbu.no"
+
+import math
 
 
 def letter_freq(txt):

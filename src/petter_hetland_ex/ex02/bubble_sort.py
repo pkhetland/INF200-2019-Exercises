@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 __author__ = "petter hetland"
 __email__ = "pehe@nmbu.no"
 
