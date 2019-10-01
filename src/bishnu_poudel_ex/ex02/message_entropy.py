@@ -18,14 +18,10 @@ def letter_freq(txt):
 
 def entropy(message):
     result_freq = letter_freq(message)
-    sum_values = 0
-    for i in result_freq.values():
-        sum_values = sum_values + i
+    sum_values = len(message)
     entr = 0
     for i in result_freq.values():
-        entr = entr + (i / sum_values) * math.log((i / sum_values),
-                                                  2)
-
+        entr = entr + (i / sum_values) * math.log2(i / sum_values)
     return -1 * entr
 
 

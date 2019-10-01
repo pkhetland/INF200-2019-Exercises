@@ -5,18 +5,14 @@ __email__ = "bishnu.poudel@nmbu.no"
 
 def bubble_sort(data1):
     data2 = list(data1)
-    end = len(data2)
     if len(data2) <= 1:
         return data2
     else:
         for j in range(len(data2)):
-            end = end - 1
-            for i in range(end):
+            for i in range(len(data2)-j-1):
                 if data2[i + 1] < data2[i]:
-                    temp = data2[i + 1]
-                    data2[i + 1] = data2[i]
-                    data2[i] = temp
-    return data2
+                    data2[i + 1], data2[i] = data2[i],  data2[i + 1]
+        return data2
 
 
 if __name__ == "__main__":
