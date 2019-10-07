@@ -110,4 +110,12 @@ def multiple_games(num_games, num_players):
     return game_lengths
 
 
+def multi_game_experiment(num_games, num_players, seed):
+    random.seed(seed)
+    game_lengths = []
+    for _ in range(num_games):
+        game_lengths.append(single_game(num_players))
+    return game_lengths
+
+print(multi_game_experiment(100, 4, 2))
 
