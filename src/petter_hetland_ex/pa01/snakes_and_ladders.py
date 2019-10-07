@@ -85,12 +85,12 @@ def single_game(num_of_players):
             if positions[player][-1] in snake_ladders.keys():
                 positions[player][-1] = snake_ladders[positions[player][-1]]
             else:
-                continue
+                pass
             if positions[player][-1] >= 90:
                 winner = positions[player]
                 has_won = True
             else:
-                continue
+                pass
     return len(winner) - 1
 
 
@@ -110,4 +110,4 @@ def multiple_games(num_games, num_players):
     return game_lengths
 
 
-print(multiple_games(100, 4))
+
