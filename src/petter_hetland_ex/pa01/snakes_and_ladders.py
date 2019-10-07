@@ -19,18 +19,6 @@ add_players(n) makes a list of lists containing 0. Each list of 0 represents a
 """
 
 
-def add_board():
-    board = list(range(0, 91))
-    return board
-
-
-"""
-NOT USED
-add_board() makes a list containing all integers from 0 to 90. This will be
-a reference to where the players are on the board.
-"""
-
-
 def snake_and_ladders():
     snake_and_ladders_dict = {
         1: 40,
@@ -69,7 +57,6 @@ dice_value() tosses a 6-sided dice and returns the value.
 
 
 def win_checker(positions, num_of_players):
-
     for x in range(num_of_players):
         for y in range(len(positions[0])):
             if positions[x][y] >= 90:
@@ -90,20 +77,20 @@ def single_game(num_of_players):
     positions = add_players(num_of_players)
     snake_ladders = snake_and_ladders()
     winner = []
-    checker = 0
-    while checker is not 1:
+    has_won = False
+    while has_won is not True:
         for player in range(num_of_players):
             dice = dice_value()
             positions[player].append(positions[player][-1] + dice)
             if positions[player][-1] in snake_ladders.keys():
                 positions[player][-1] = snake_ladders[positions[player][-1]]
             else:
-                pass
+                continue
             if positions[player][-1] >= 90:
                 winner = positions[player]
-                checker = 1
+                has_won = True
             else:
-                pass
+                continue
     return len(winner) - 1
 
 
@@ -113,4 +100,14 @@ has won. The input is how many players you want to play. The function returns
 how many turns the winner used to win.
 """
 
-single_game(4)
+
+def multiple_games(num_games, num_players):
+    """Returns durations of a number of games.
+    """
+    game_lengths = []
+    for _ in range(num_games):
+        game_lengths.append(single_game(num_players))
+    return game_lengths
+
+
+print(multiple_games(100, 4))
