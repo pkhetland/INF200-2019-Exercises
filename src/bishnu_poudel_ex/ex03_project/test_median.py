@@ -9,11 +9,6 @@ import collections
 import pytest
 
 
-# Writing a compare function for use in one of the tests
-def compare(first, second):
-    return collections.Counter(first) == collections.Counter(second)
-
-
 def median(data):
     """
     Returns median of data.
