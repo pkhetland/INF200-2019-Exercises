@@ -3,12 +3,9 @@
 __author__ = 'Nils Skadderenes, Bishnu Poudel'
 __email__ = 'nils.skadderenes@nmbu.no,bishnu.poudel@nmbu.no'
 
-'''Test'''
-# test from Bish
-
 from random import randint
 def dice_throw():
-    return randint(1, 6)    
+    return randint(1, 6)
 
 ladders_list= [(1,40),(8,10),(36,52),(43,62),(49,79),(65,82),(68,85)]
 snakes_list= [(24,5),(33,3),(42,30),(56,37),(64,27),(74,12),(87,70)]
@@ -23,21 +20,25 @@ def check_for_snakes_and_ladders(position):
             position= i[1]
     return position
 
- def define_players_and_play():
-    num_players = int( input("Number of players:"))
-    players_position= [0]* (num_players+1)
-    print(players_position)
 
-    for i in range( 1,  num_players+1):
-        dice_output = dice_throw()
-        print(dice_output)
-        players_position[i] = players_position[i] + dice_output
-        players_position[i] = check_for_snakes_and_ladders(players_position[i])
-        
-    return players_position
+def play_one_dice_roll(position):
+    dice_output = dice_throw()
+    position = position + dice_output
+    position = check_for_snakes_and_ladders(position)
+    return position
 
-def win_check():
-    pass
-    
-re=define_players_and_play()
-print(re)
+
+def single_game(num_players):
+    players_position = [0] * (num_players)
+    players_steps = [0] * (num_players)
+
+    while True:
+        for i in range(num_players):
+            players_position[i] = play_one_dice_roll(players_position[i])
+            players_steps[i] += 1
+            print(i, ' th player moved to ', players_position[i])
+            if players_position[i] >= 90:
+                return players_position, players_steps
+
+if __name__ == '__main__':
+    single_game(2)
