@@ -40,5 +40,18 @@ def single_game(num_players):
             if players_position[i] >= 90:
                 return players_position, players_steps
 
+def multiple_games(num_games,num_players):
+    for i in range(num_games):
+        p,s=single_game(num_players)
+        print(p,s)
+
+def multi_game_experiment(num_games, num_players, seed):
+    random.seed(seed)
+    for i in range(num_games):
+        p,s=single_game(num_players)
+        print(p,s)
+
 if __name__ == '__main__':
-    single_game(2)
+    multi_game_experiment(3,1,1)
+    multi_game_experiment(3,1,2)
+    multi_game_experiment(3,1,3)
