@@ -141,7 +141,7 @@ if __name__ == "__main__":
     - Minimum number (int) of moves among the 100 games run
     - Maximum number (int) of moves among the 100 games run
     - Mean value (float) of all game durations
-    - Median value (int) of all game durations
+    - Median value (float) of all game durations
     """
 
     experiment = multi_game_experiment(100, 4, 10)
