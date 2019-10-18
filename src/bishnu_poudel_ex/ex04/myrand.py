@@ -6,21 +6,21 @@ __email__ = 'bishnu.poudel@nmbu.no'
 import random
 
 
-def lcg(modulus, a, c, seed):
-  while True:
-    seed = (a * seed + c) % modulus
-    yield seed
+class LGCRand:
+    a = 16807
+    m = 2 ** 31 - 1
 
-#class LGCRand:
-#    a = 16807
-#    m = 2 ** 31 - 1
-#
-#    def __init__(self, input_seed):
-#        self.input_seed = input_seed
-#        pass
-#
-#    def rand(self):
-#        return (self.a * self.input_seed) % self.m
+    def __init__(self, input_seed):
+        self.input_seed = input_seed
+
+
+# Using generator/yield concept    
+    def rand(self):
+        self.input_seed= (self.a * self.input_seed) % self.m
+        while True:
+            yield self.input_seed
+            self.input_seed= (self.a * self.input_seed) % self.m
+            
 
 # class ListRand:
 #     def __init__(self):
@@ -30,8 +30,10 @@ def lcg(modulus, a, c, seed):
 #         pass
 #     pass
 
-if __name__== "__main__":
-    c= lcg(5,2,3,1)
-    print(c)
-#    l=LGCRand(6);
-#    print( l.rand())
+#if __name__== "__main__":
+c = LGCRand(6)
+gen = c.rand()
+for i in range(5):
+    print (next(gen))
+
+   
