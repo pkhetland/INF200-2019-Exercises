@@ -31,13 +31,13 @@ class ListRand:
 
     def rand(self):                
         while True:
-            try:
-                yield self.list_input[self.i]
-            except Exception as e:
-                print(e)
-                return
-            else:
-                self.i += 1
+##            try:
+            yield self.list_input[self.i]
+##            except Exception as e:
+##                print(e)
+##                break
+##            else:
+            self.i += 1
 
 
 if __name__== "__main__":
@@ -52,6 +52,14 @@ if __name__== "__main__":
     for i in range(3):
         print(next(gen1))
         
-    print(next(gen1))
+    try:    
+        print(next(gen1))
+    except Exception as e:
+        print(e)
+
+    c = LGCRand(6)
+    gen = c.rand()
+    for i in range(5):
+        print (next(gen))
 
    
