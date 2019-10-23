@@ -6,7 +6,7 @@ __email__ = 'bishnu.poudel@nmbu.no'
 import random
 
 
-class LGCRand:
+class LCGRand:
     a = 16807
     m = 2 ** 31 - 1
 
@@ -14,52 +14,35 @@ class LGCRand:
         self.input_seed = input_seed
 
 
-# Using generator/yield concept    
     def rand(self):
         self.input_seed= (self.a * self.input_seed) % self.m
-        while True:
-            yield self.input_seed
-            self.input_seed= (self.a * self.input_seed) % self.m
-            
+        return self.input_seed
+
 
 class ListRand:
-    
+
     def __init__(self, list_input):
         self.list_input= list_input
-        self.i=0
-         
+        self.i = -1
 
-    def rand(self):                
-        while True:
-##            try:
-            yield self.list_input[self.i]
-##            except Exception as e:
-##                print(e)
-##                break
-##            else:
-            self.i += 1
+
+    def rand(self):
+        self.i += 1
+        return self.list_input[self.i]
 
 
 if __name__== "__main__":
-    c = LGCRand(6)
-    gen = c.rand()
-    for i in range(5):
-        print (next(gen))
-        
+    c = LCGRand(346)
+    print(c.rand())
+    print(c.rand())
+
+
     array_list=[1,2,3]
     d= ListRand(array_list)
-    gen1 = d.rand()
-    for i in range(3):
-        print(next(gen1))
-        
-    try:    
-        print(next(gen1))
-    except Exception as e:
-        print(e)
+    print(  d.rand() )
+    print( d.rand() )
+    print(d.rand())
+    print(d.rand())
 
-    c = LGCRand(6)
-    gen = c.rand()
-    for i in range(5):
-        print (next(gen))
 
    
