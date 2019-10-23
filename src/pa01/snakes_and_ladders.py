@@ -20,7 +20,7 @@ The rules are as follows:
 
 from random import randint
 import random
-import statistics as st
+import numpy as np
 
 
 # dice_throw gives integers from 1 to 6
@@ -100,5 +100,5 @@ if __name__ == '__main__':
     #    print(p)
     print("The shortest game duration is ", min(p_steps),
           " and Longest ", max(p_steps))
-    print("The median game duration is ", st.median(p_steps))
-    print("The mean game duration is ", st.mean(p_steps))
+    print("The median game duration is ", np.median(p_steps))
+    print("The mean game duration is ", np.mean(p_steps))
