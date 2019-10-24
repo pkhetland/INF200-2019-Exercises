@@ -1,3 +1,7 @@
+
+Instructions
+=======================================
+
 1. This exercise must be submitted as a pull request on GitHub.
 2. Start by checking out the ``master`` branch of your repository.
 3. Create branch ``ex05``, **branching from the ``master``
