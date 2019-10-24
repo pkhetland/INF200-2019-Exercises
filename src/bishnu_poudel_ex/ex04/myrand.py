@@ -3,7 +3,6 @@
 __author__ = 'Bishnu Poudel'
 __email__ = 'bishnu.poudel@nmbu.no'
 
-import random
 
 
 class LCGRand:

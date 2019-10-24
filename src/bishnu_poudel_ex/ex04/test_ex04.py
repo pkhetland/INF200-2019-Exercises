@@ -30,13 +30,13 @@ def test_list_rng():
         lr.rand()
 
 
-##def test_walker():
-##    """Test that Walker class can be used as required."""
-##
-##    start, home = 10, 20
-##    w = Walker(start, home)
-##    assert not w.is_at_home()
-##    w.move()
-##    assert w.get_position() != start
-##    w.move()
-##    assert w.get_steps() == 2
+def test_walker():
+    """Test that Walker class can be used as required."""
+
+    start, home = 10, 20
+    w = Walker(start, home)
+    assert not w.is_at_home()
+    w.move()
+    assert w.get_position() != start
+    w.move()
+    assert w.get_steps() == 2
