@@ -26,7 +26,7 @@ def test_list_rng():
     numbers = [4, 5, 29, 11]
     lr = ListRand(numbers)
     assert [lr.rand() for _ in range(len(numbers))] == numbers
-    with pytest.raises(IndexError):
+    with pytest.raises(RuntimeError):
         lr.rand()
 
 

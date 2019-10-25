@@ -24,7 +24,11 @@ class ListRand:
 
     def rand(self):
         self.i += 1
-        return self.list_input[self.i]
+        if self.i >= len(self.list_input):
+            raise RuntimeError("No more items in the list!")
+            # return
+        else:
+            return self.list_input[self.i]
 
 
 if __name__ == "__main__":
