@@ -19,7 +19,7 @@ class Walker:
         else:
             self.initial_position += 1
         self.steps_taken += 1
-        return self.initial_position
+        # return self.initial_position
 
     def is_at_home(self):
         if self.initial_position == self.final_position:
