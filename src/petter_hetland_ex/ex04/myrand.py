@@ -35,3 +35,21 @@ class ListRand:
             return self.list[item]
         except IndexError:
             raise RuntimeError("We're out of numbers!")
+
+
+if __name__ == '__main__':
+    # Print header
+    print('\nTesting LCGRand:')
+    # Create LCGRand instance:
+    lcg_rand = LCGRand(346)
+    # Loop through and print the n first random numbers:
+    for i in range(5):
+        print(f'Random number {i + 1}: {lcg_rand.rand()}')
+
+    # Print header
+    print('\nTesting ListRand:')
+    # Create ListRand instance:
+    list_rand = ListRand([1, 6, 0, 4, 3, 8])
+    # Loop through and print the n first random numbers:
+    for i in range(5):
+        print(f'Random number {i + 1}: {list_rand.rand()}')

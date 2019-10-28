@@ -41,3 +41,18 @@ def walk_home(initial_position, distance):
     while not w.is_at_home():
         w.move()
     return w.get_steps()
+
+
+if __name__ == '__main__':
+    """Test walk_home() function from walker.py with different distances
+    """
+
+    print('\nTesting walk_home function:')
+
+    for distance in [1, 2, 5, 10, 20, 50, 100]:
+        # Loops through given distances
+        moves_count = [walk_home(0, distance) for _ in range(5)]
+        # List captures result of n number of simulations
+        print("Distance: {:5} -> Path lengths: {}"
+              .format(distance, moves_count))
+        # Prints result
