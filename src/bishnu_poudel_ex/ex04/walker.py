@@ -22,9 +22,7 @@ class Walker:
         # return self.initial_position
 
     def is_at_home(self):
-        if self.initial_position == self.final_position:
-            return True
-        return False
+        return self.initial_position == self.final_position
 
     def get_position(self):
         return self.initial_position
