@@ -18,9 +18,9 @@ class LCGRand:
         self.init_number = seed
 
     def rand(self):
-        self.next_number = (16807 * self.init_number) % (2**31-1)
-        self.init_number = self.next_number
-        return self.next_number
+        next_number = (16807 * self.init_number) % (2**31-1)
+        self.init_number = next_number
+        return next_number
 
 
 class ListRand:
@@ -31,9 +31,9 @@ class ListRand:
     def rand(self):
         item = self.times_called
         self.times_called += 1
-        try:
+        if self.times_called <= len(self.list):
             return self.list[item]
-        except IndexError:
+        else:
             raise RuntimeError("We're out of numbers!")
 
 
@@ -51,5 +51,5 @@ if __name__ == '__main__':
     # Create ListRand instance:
     list_rand = ListRand([1, 6, 0, 4, 3, 8])
     # Loop through and print the n first random numbers:
-    for i in range(5):
+    for i in range(8):
         print(f'Random number {i + 1}: {list_rand.rand()}')
