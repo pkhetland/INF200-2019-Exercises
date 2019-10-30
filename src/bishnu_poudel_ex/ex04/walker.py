@@ -7,11 +7,11 @@ import random
 
 
 class Walker:
-    steps_taken = 0
-
+    
     def __init__(self, initial_position, final_position):
         self.initial_position = initial_position
         self.final_position = final_position
+        self.steps_taken = 0
 
     def move(self):
         if random.randint(0, 1) == 0:
