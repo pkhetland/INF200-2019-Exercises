@@ -108,8 +108,5 @@ class BoundedSimulation(Simulation):
 if __name__ == '__main__':
     for l_limit in [0, -10, -100, -1000, -10000]:
         bounded_sim = BoundedSimulation(0, 20, 2, l_limit, 20)
-        print(bounded_sim.run_simulation(20))
-
-
-
-
+        print('With a left boundary for {:6}: '.format(l_limit),
+              bounded_sim.run_simulation(20))

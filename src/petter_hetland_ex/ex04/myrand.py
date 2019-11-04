@@ -22,6 +22,17 @@ class LCGRand:
         self.init_number = next_number
         return next_number
 
+    def infinite_random_sequence(self):
+        """
+        Generate an infinite sequence of random numbers.
+
+        Yields
+        ------
+        int
+            A random number.
+        """
+        pass
+
 
 class ListRand:
     def __init__(self, list):

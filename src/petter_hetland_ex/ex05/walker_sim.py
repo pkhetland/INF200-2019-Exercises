@@ -138,4 +138,3 @@ home at {sim_six.home} and a seed of {sim_six.seed} is:
         """)
 
     print(sim_six.run_simulation(20))
-
