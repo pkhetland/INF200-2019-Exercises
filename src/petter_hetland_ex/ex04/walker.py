@@ -25,9 +25,7 @@ class Walker:
         return self.x
 
     def is_at_home(self):
-        if self.x == self.h:
-            return True
-        return False
+        return self.x == self.h
 
     def get_steps(self):
         return self.num_steps
