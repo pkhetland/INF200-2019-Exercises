@@ -41,15 +41,16 @@ class Board:
         -------
         Position (Int) - Position after effects of chutes or ladders.
         """
+        adjustment = 0
         for ladder in self.ladders:
             if position == ladder[0]:
-                position = ladder[1]
-                return position
+                adjustment = ladder[1] - ladder[0]
+
         for chute in self.chutes:
             if position == chute[0]:
-                position = chute[1]
-                return position
-        return position
+                adjustment = chute[1] - chute[0]
+
+        return adjustment
 
 
 class Player:
@@ -61,6 +62,7 @@ class Player:
     -------
     board (Class)
     """
+
     def __init__(self, board=Board()):
         self.board = board
         self.position = 0
@@ -71,7 +73,8 @@ class Player:
         """
         dice_value = randint(1, 6)
         self.position += dice_value
-        self.board.position_adjustment(self.position)
+        jump = self.board.position_adjustment(self.position)
+        self.position += jump
 
 
 class ResilientPlayer(Player):
@@ -80,18 +83,32 @@ class ResilientPlayer(Player):
     the next move, in addition to the roll of the die. The number of extra
     teps is provided as an argument to the constructor, default is 1.
     """
+
     def __init__(self,
                  board=Board(),
                  extra_steps=1):
+        super().__init__(board)
         self.extra_steps = extra_steps
+        self.got_chutes = False
 
     def move(self):
         """Modifies the "move"-method of the super() by adding the given
-        number of extra steps.
+        number of extra steps. Extra steps added if the got_chutes variable is
+        True.
         """
         dice_value = randint(1, 6)
-        self.position += dice_value + self.extra_steps
-        self.board.position_adjustment(self.position)
+        self.position += dice_value
+        if self.got_chutes:
+            self.position += self.extra_steps
+        jump = self.board.position_adjustment(self.position)
+        self.position += jump
+
+        self.got_chutes = False
+        if jump < 0:
+            self.got_chutes = True
+
+    # def got_chutes(self):
+    #     return self.board.position_adjustment(self.position) < 0
 
 
 class LazyPlayer(Player):
@@ -99,6 +116,7 @@ class LazyPlayer(Player):
     The number of dropped steps is an optional argument to the constructor,
     default is 1.
     """
+
     def __init__(self,
                  board=Board()):
         pass
@@ -107,6 +125,7 @@ class LazyPlayer(Player):
 class Simulation:
     """Manages an entire simulation.
     """
+
     def __init__(self, player_field,
                  board=Board(),
                  seed=1,
