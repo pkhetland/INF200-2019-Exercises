@@ -9,6 +9,7 @@ __email__ = ', bishnu.poudel@nmbu.no'
 
 from . import chutes_simulation as cs
 import pytest
+from copy import copy
 
 
 class TestBoard:
@@ -48,5 +49,20 @@ class TestPlayer:
         assert p.position == 0
         p.move()
         assert p.position != 0
-        assert p.position == p.position +b.position_adjustment(p.position) or \
+        assert p.position == p.position + b.position_adjustment(p.position) or \
                p.position == p.position - b.position_adjustment(p.position)
+
+
+class TestResilientPlayer:
+
+    def test_move(self):
+        """Test if Resilient player takes more than 6 steps just after
+        it falls down a chute, extra_steps==6"""
+        r = cs.ResilientPlayer(extra_steps=6)
+        while r.position != 5:
+            r.position = 23
+            r.move()
+
+        a = copy(r.position)
+        r.move()
+        assert r.position > a + 6

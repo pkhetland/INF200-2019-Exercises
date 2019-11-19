@@ -1,6 +1,16 @@
-from chutes_simulation import Board, Player
+from copy import copy
 
-b= Board()
-print( b.position_adjustment(1))
+from chutes_simulation import Board, Player, ResilientPlayer
 
-p= Player()
+# b= Board()
+# print( b.position_adjustment(1))
+# p= Player()
+
+r = ResilientPlayer(extra_steps=6)
+while r.position != 5:
+    r.position = 23
+    r.move()
+# r.position += r.board.position_adjustment(r.position)
+a = copy(r.position)
+r.move()
+print(a, r.position)
