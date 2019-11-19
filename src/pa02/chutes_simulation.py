@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-
-__author__ = ''
-__email__ = ''
+'''Snakes and Ladders using OOP approach.'''
+__author__ = 'Petter K. Hetland, Bishnu Poudel'
+__email__ = ', bishnu.poudel@nmbu.no'
 
 from random import randint
 
