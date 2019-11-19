@@ -118,8 +118,28 @@ class LazyPlayer(Player):
     """
 
     def __init__(self,
-                 board=Board()):
-        pass
+                 board=Board(),
+                 drop_steps=1):
+        super().__init__(board)
+        self.drop_steps = drop_steps
+        self.got_ladder = False
+
+    def move(self):
+        """Modifies the "move"-method of the super() by adding the given
+        number of drop steps. Drop steps subtracted if the got_ladder variable is
+        True and the number of drop steps is less than dice value
+        """
+        dice_value = randint(1, 6)
+        self.position += dice_value
+        if self.got_ladder and self.drop_steps <= dice_value:
+            self.position -= self.drop_steps
+
+        jump = self.board.position_adjustment(self.position)
+        self.position += jump
+
+        self.got_ladder = False
+        if jump > 0:
+            self.got_ladder = True
 
 
 class Simulation:
