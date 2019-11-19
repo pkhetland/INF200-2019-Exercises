@@ -67,16 +67,26 @@ class TestResilientPlayer:
         r.move()
         assert r.position > a + 6
 
+
 class TestLazyPlayer:
 
     def test_move(self):
         """Test if Resilient player takes more than 6 steps just after
         it falls down a chute, extra_steps==6"""
-        r = cs.ResilientPlayer(extra_steps=6)
-        while r.position != 5:
-            r.position = 23
+        r = cs.LazyPlayer(drop_steps=1)
+        while r.position != 10:
+            r.position = 7
             r.move()
 
         a = copy(r.position)
         r.move()
-        assert r.position > a + 6
+        assert a + 5 >= r.position >= a
+
+        r = cs.LazyPlayer(drop_steps=3)
+        while r.position != 10:
+            r.position = 7
+            r.move()
+
+        a = copy(r.position)
+        r.move()
+        assert a + 3 >= r.position >= a
