@@ -3,6 +3,7 @@
 __author__ = 'Petter K. Hetland, Bishnu Poudel'
 __email__ = 'pehe@nmbu.no, bishnu.poudel@nmbu.no'
 
+import random as r
 from random import randint
 
 
@@ -175,6 +176,7 @@ class Simulation:
         --------
         tuple - number of moves made and the type of the winner
         """
+
         pl = [] * 0
 
         for play in self.player_field:
@@ -196,6 +198,8 @@ class Simulation:
         -------
         num_of_sims = int
         """
+        r.seed(self.seed)
+
         for _ in range(num_of_sims):
             self.results.append(self.single_game())
 
@@ -231,7 +235,7 @@ class Simulation:
         participate, e.g., {'Player': 3, 'LazyPlayer': 1, 'ResilientPlayer': 0}
         """
         for player in self.player_field:
-            self.players_per_type_dict[player] = \
+            self.players_per_type_dict[player.__name__] = \
                 self.player_field.count(player)
         return self.players_per_type_dict
 
@@ -243,6 +247,7 @@ if __name__ == "__main__":
                       LazyPlayer,
                       ResilientPlayer,
                       LazyPlayer])
-    sim.run_simulation(10)
+    sim.run_simulation(100)
     print(sim.get_results())
     print(sim.winners_per_type())
+    print(sim.players_per_type())
