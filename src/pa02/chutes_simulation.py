@@ -165,6 +165,10 @@ class Simulation:
             self.players_per_type_dict[player.__name__] = \
                 self.player_field.count(player)
 
+        # Fill in winner_per_type_dict with zeros
+        for player in player_field:
+            self.winners_per_type_dict[player.__name__] = 0
+
     def single_game(self):
         """Runs a single game
         Returns
@@ -207,8 +211,10 @@ class Simulation:
         Returns a dictionary mapping player types to the number of wins,
         e.g., {'Player': 4, 'LazyPlayer': 2, 'ResilientPlayer': 5}
         """
-        for player in self.player_field:
-            self.winners_per_type_dict[player.__name__] = 1
+        for result in self.results:
+            for player in set(self.player_field):
+                if result[1] == player.__name__:
+                    self.winners_per_type_dict[player.__name__] += 1
         return self.winners_per_type_dict
 
     def durations_per_type(self):
@@ -232,7 +238,11 @@ class Simulation:
 
 if __name__ == "__main__":
     b = Board()
-    sim = Simulation([Player, Player, LazyPlayer, ResilientPlayer])
-    sim.run_simulation(2)
-    sim.run_simulation(2)
+    sim = Simulation([Player,
+                      Player,
+                      LazyPlayer,
+                      ResilientPlayer,
+                      LazyPlayer])
+    sim.run_simulation(10)
     print(sim.get_results())
+    print(sim.winners_per_type())
