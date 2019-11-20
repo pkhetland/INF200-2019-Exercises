@@ -158,8 +158,8 @@ class Simulation:
 
         self.results = []  # Stores the results of simulations
         self.players_per_type_dict = {}  # Maps amount of players to each type
-        self.winners_per_type_dict = {}  # Maps amount of winners per type
-        self.durations_per_type_dict = {}  # Maps duration of games per type
+        self.winners_dict = {}  # Maps amount of winners per type
+        self.durations_dict = {}  # Maps duration of games per type
 
         # Fill in players_per_type_dict
         for player in player_field:
@@ -168,7 +168,7 @@ class Simulation:
 
         # Fill in winner_per_type_dict with zeros
         for player in player_field:
-            self.winners_per_type_dict[player.__name__] = 0
+            self.winners_dict[player.__name__] = 0
 
     def single_game(self):
         """Runs a single game
@@ -218,17 +218,24 @@ class Simulation:
         for result in self.results:
             for player in set(self.player_field):
                 if result[1] == player.__name__:
-                    self.winners_per_type_dict[player.__name__] += 1
-        return self.winners_per_type_dict
+                    self.winners_dict[player.__name__] += 1
+        return self.winners_dict
 
     def durations_per_type(self):
         """returns a dictionary mapping player types to lists of game
         durations for that type, e.g., {'Player': [11, 25, 13], 'LazyPlayer':
          [39], 'ResilientPlayer': [8, 7, 6, 11]}
          """
-        for player in self.player_field:
-            self.durations_per_type_dict[player.__name__] = [1, 2, 5]
-        return self.durations_per_type_dict
+        for player in set(self.player_field):
+            self.durations_dict[player.__name__] = []
+
+        for result in self.results:
+            for player in set(self.player_field):
+                if result[1] == player.__name__:
+                    self.durations_dict[player.__name__]\
+                        .append(result[0])
+
+        return self.durations_dict
 
     def players_per_type(self):
         """returns a dictionary showing how many players of each type
@@ -247,7 +254,8 @@ if __name__ == "__main__":
                       LazyPlayer,
                       ResilientPlayer,
                       LazyPlayer])
-    sim.run_simulation(100)
+    sim.run_simulation(5)
     print(sim.get_results())
+    print(sim.durations_per_type())
     print(sim.winners_per_type())
     print(sim.players_per_type())
