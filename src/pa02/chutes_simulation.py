@@ -155,22 +155,28 @@ class Simulation:
         self.seed = seed  # Integer
         self.randomize_players = randomize_players  # Boolean value
 
-        self.results = []  # Stores the results of simulations
+        # self.results = []  # Stores the results of simulations
         self.players_per_type_dict = {}  # Maps amount of players to each type
         self.winners_per_type_dict = {}  # Maps amount of winners per type
         self.durations_per_type_dict = {}  # Maps duration of games per type
 
     def single_game(self):
         """Runs a single game
-
         Returns
         --------
         tuple - number of moves made and the type of the winner
         """
-        player = 'Player'
-        number_of_steps = 10
-        result = (number_of_steps, player)
-        return result
+        pl = [] * 0
+
+        for play in self.player_field:
+            pl.append(play())
+
+        while True:
+            for p in pl:
+                p.move()
+                if p.position >= 90:
+                    result = (p.position, type(p).__name__)
+                    return result
 
     def run_simulation(self, num_of_sims):
         """
