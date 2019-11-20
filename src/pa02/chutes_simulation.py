@@ -160,6 +160,11 @@ class Simulation:
         self.winners_per_type_dict = {}  # Maps amount of winners per type
         self.durations_per_type_dict = {}  # Maps duration of games per type
 
+        # Fill in players_per_type_dict
+        for player in player_field:
+            self.players_per_type_dict[player.__name__] = \
+                self.player_field.count(player)
+
     def single_game(self):
         """Runs a single game
         Returns
@@ -172,10 +177,10 @@ class Simulation:
             pl.append(play())
 
         while True:
-            for p in pl:
-                p.move()
-                if p.position >= 90:
-                    result = (p.position, type(p).__name__)
+            for player in pl:
+                player.move()
+                if player.position >= 90:
+                    result = (player.position, type(player).__name__)
                     return result
 
     def run_simulation(self, num_of_sims):
@@ -226,4 +231,7 @@ class Simulation:
 
 
 if __name__ == "__main__":
-    pass
+    b = Board()
+    sim = Simulation([Player, Player, LazyPlayer, ResilientPlayer])
+    print(sim.single_game())
+    print(sim.players_per_type_dict)
