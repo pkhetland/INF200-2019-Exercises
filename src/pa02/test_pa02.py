@@ -49,8 +49,8 @@ class TestPlayer:
         assert p.position == 0
         p.move()
         assert p.position != 0
-        assert p.position == p.position + b.position_adjustment(p.position) or \
-               p.position == p.position - b.position_adjustment(p.position)
+        assert p.position == p.position + b.position_adjustment(p.position) \
+            or p.position == p.position - b.position_adjustment(p.position)
 
 
 class TestResilientPlayer:
@@ -65,7 +65,7 @@ class TestResilientPlayer:
 
         a = copy(r.position)
         r.move()
-        assert r.position > a + 6
+        assert r.position > a + 6 is True
 
 
 class TestLazyPlayer:
@@ -73,7 +73,7 @@ class TestLazyPlayer:
     def test_move(self):
         """Test if Resilient player takes more than 6 steps just after
         it falls down a chute, extra_steps==6"""
-        r = cs.LazyPlayer(drop_steps=1)
+        r = cs.LazyPlayer(dropped_steps=1)
         while r.position != 10:
             r.position = 7
             r.move()
@@ -82,7 +82,7 @@ class TestLazyPlayer:
         r.move()
         assert a + 5 >= r.position >= a
 
-        r = cs.LazyPlayer(drop_steps=3)
+        r = cs.LazyPlayer(dropped_steps=3)
         while r.position != 10:
             r.position = 7
             r.move()

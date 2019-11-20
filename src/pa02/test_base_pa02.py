@@ -12,7 +12,6 @@ from . import chutes_simulation as cs
 import pytest
 
 
-
 class TestBoard:
     """
     Tests for Board class.

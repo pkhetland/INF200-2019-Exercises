@@ -4,7 +4,7 @@ __author__ = 'Petter K. Hetland, Bishnu Poudel'
 __email__ = 'pehe@nmbu.no, bishnu.poudel@nmbu.no'
 
 import random as r
-from random import randint
+from random import randint, shuffle
 
 
 class Board:
@@ -40,7 +40,8 @@ class Board:
 
         Returns
         -------
-        Position (Int) - Position after effects of chutes or ladders.
+        Adjustment(Int) - The amount of steps the player has to move
+        in either direction to get the correct position.
         """
         adjustment = 0
         for ladder in self.ladders:
@@ -57,7 +58,7 @@ class Board:
 class Player:
     """
     Manages information about player position, including information on which
-    board a player “lives”. 1.
+    board a player “lives”.
 
     Arguments
     -------
@@ -67,13 +68,13 @@ class Player:
     def __init__(self, board=Board()):
         self.board = board
         self.position = 0
-        self.moves_made = 0
+        self.num_moves = 0
 
     def move(self):
         """Will move the player by implementing a die cast,
          and, if necessary, a move up a ladder or down a chute.
         """
-        self.moves_made += 1
+        self.num_moves += 1
         dice_value = randint(1, 6)
         self.position += dice_value
         jump = self.board.position_adjustment(self.position)
@@ -99,20 +100,17 @@ class ResilientPlayer(Player):
         number of extra steps. Extra steps added if the got_chutes variable is
         True.
         """
-        self.moves_made += 1
+        self.num_moves += 1
         dice_value = randint(1, 6)
         self.position += dice_value
-        if self.got_chutes:
-            self.position += self.extra_steps
         jump = self.board.position_adjustment(self.position)
-        self.position += jump
 
-        self.got_chutes = False
         if jump < 0:
             self.got_chutes = True
 
-    # def got_chutes(self):
-    #     return self.board.position_adjustment(self.position) < 0
+        self.position += jump
+        if self.got_chutes:
+            self.position += self.extra_steps
 
 
 class LazyPlayer(Player):
@@ -123,17 +121,17 @@ class LazyPlayer(Player):
 
     def __init__(self,
                  board=Board(),
-                 drop_steps=1):
+                 dropped_steps=1):
         super().__init__(board)
-        self.drop_steps = drop_steps
+        self.drop_steps = dropped_steps
         self.got_ladder = False
 
     def move(self):
         """Modifies the "move"-method of the super() by adding the given
-        number of drop steps. Drop steps subtracted if the got_ladder variable is
-        True and the number of drop steps is less than dice value
+        number of drop steps. Drop steps subtracted if the got_ladder variable
+        is True and the number of drop steps is less than dice value.
         """
-        self.moves_made += 1
+        self.num_moves += 1
         dice_value = randint(1, 6)
         self.position += dice_value
         if self.got_ladder and self.drop_steps <= dice_value:
@@ -160,19 +158,23 @@ class Simulation:
         self.seed = seed  # Integer
         self.randomize_players = randomize_players  # Boolean value
 
-        self.results = []  # Stores the results of simulations
-        self.players_per_type_dict = {}  # Maps amount of players to each type
-        self.winners_dict = {}  # Maps amount of winners per type
+        self.results = []  # Stores the results of simulations as a list
+        self.players_dict = {}  # Maps num of players to each type
+        self.winners_dict = {}  # Maps num of winners per type
         self.durations_dict = {}  # Maps duration of games per type
 
         # Fill in players_per_type_dict
         for player in player_field:
-            self.players_per_type_dict[player.__name__] = \
+            self.players_dict[player.__name__] = \
                 self.player_field.count(player)
 
         # Fill in winner_per_type_dict with zeros
         for player in player_field:
             self.winners_dict[player.__name__] = 0
+
+        # Randomize player field if parameter is set to True
+        if randomize_players:
+            shuffle(self.player_field)
 
     def single_game(self):
         """Runs a single game
@@ -181,7 +183,7 @@ class Simulation:
         tuple - number of moves made and the type of the winner
         """
 
-        pl = [] * 0
+        pl = []
 
         for play in self.player_field:
             pl.append(play())
@@ -190,7 +192,7 @@ class Simulation:
             for player in pl:
                 player.move()
                 if player.position >= 90:
-                    result = (player.moves_made, type(player).__name__)
+                    result = (player.num_moves, type(player).__name__)
                     return result
 
     def run_simulation(self, num_of_sims):
@@ -202,7 +204,7 @@ class Simulation:
         -------
         num_of_sims = int
         """
-        r.seed(self.seed)
+        r.seed(self.seed)  # Applies the given seed for the simulation
 
         for _ in range(num_of_sims):
             self.results.append(self.single_game())
@@ -230,14 +232,13 @@ class Simulation:
         durations for that type, e.g., {'Player': [11, 25, 13], 'LazyPlayer':
          [39], 'ResilientPlayer': [8, 7, 6, 11]}
          """
-        for player in set(self.player_field):
+        for player in set(self.player_field):  # Set values to empty lists
             self.durations_dict[player.__name__] = []
 
-        for result in self.results:
+        for result in self.results:  # Add durations to value lists
             for player in set(self.player_field):
                 if result[1] == player.__name__:
-                    self.durations_dict[player.__name__]\
-                        .append(result[0])
+                    self.durations_dict[player.__name__].append(result[0])
 
         return self.durations_dict
 
@@ -246,9 +247,9 @@ class Simulation:
         participate, e.g., {'Player': 3, 'LazyPlayer': 1, 'ResilientPlayer': 0}
         """
         for player in self.player_field:
-            self.players_per_type_dict[player.__name__] = \
+            self.players_dict[player.__name__] = \
                 self.player_field.count(player)
-        return self.players_per_type_dict
+        return self.players_dict
 
 
 if __name__ == "__main__":
@@ -257,9 +258,10 @@ if __name__ == "__main__":
                       Player,
                       LazyPlayer,
                       ResilientPlayer,
-                      LazyPlayer])
-    sim.run_simulation(5)
-    print(sim.get_results())
-    print(sim.durations_per_type())
-    print(sim.winners_per_type())
-    print(sim.players_per_type())
+                      LazyPlayer],
+                     randomize_players=True)
+    sim.run_simulation(10)
+    print('Results: ', sim.get_results())
+    print('\nDurations per type: ', sim.durations_per_type())
+    print('\nNum of wins per type: ', sim.winners_per_type())
+    print('\nNum of players per type: ', sim.players_per_type())
