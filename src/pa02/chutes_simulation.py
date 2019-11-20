@@ -67,11 +67,13 @@ class Player:
     def __init__(self, board=Board()):
         self.board = board
         self.position = 0
+        self.moves_made = 0
 
     def move(self):
         """Will move the player by implementing a die cast,
          and, if necessary, a move up a ladder or down a chute.
         """
+        self.moves_made += 1
         dice_value = randint(1, 6)
         self.position += dice_value
         jump = self.board.position_adjustment(self.position)
@@ -97,6 +99,7 @@ class ResilientPlayer(Player):
         number of extra steps. Extra steps added if the got_chutes variable is
         True.
         """
+        self.moves_made += 1
         dice_value = randint(1, 6)
         self.position += dice_value
         if self.got_chutes:
@@ -130,6 +133,7 @@ class LazyPlayer(Player):
         number of drop steps. Drop steps subtracted if the got_ladder variable is
         True and the number of drop steps is less than dice value
         """
+        self.moves_made += 1
         dice_value = randint(1, 6)
         self.position += dice_value
         if self.got_ladder and self.drop_steps <= dice_value:
@@ -186,7 +190,7 @@ class Simulation:
             for player in pl:
                 player.move()
                 if player.position >= 90:
-                    result = (player.position, type(player).__name__)
+                    result = (player.moves_made, type(player).__name__)
                     return result
 
     def run_simulation(self, num_of_sims):
