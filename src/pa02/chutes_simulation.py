@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 '''Snakes and Ladders using OOP approach.'''
 __author__ = 'Petter K. Hetland, Bishnu Poudel'
-__email__ = ', bishnu.poudel@nmbu.no'
+__email__ = 'pehe@nmbu.no, bishnu.poudel@nmbu.no'
 
 from random import randint
 
@@ -68,8 +68,8 @@ class Player:
         self.position = 0
 
     def move(self):
-        """Will the player by implementing a die cast, the following move and,
-        if necessary, a move up a ladder or down a chute.
+        """Will move the player by implementing a die cast,
+         and, if necessary, a move up a ladder or down a chute.
         """
         dice_value = randint(1, 6)
         self.position += dice_value
