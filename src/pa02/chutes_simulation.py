@@ -155,7 +155,7 @@ class Simulation:
         self.seed = seed  # Integer
         self.randomize_players = randomize_players  # Boolean value
 
-        # self.results = []  # Stores the results of simulations
+        self.results = []  # Stores the results of simulations
         self.players_per_type_dict = {}  # Maps amount of players to each type
         self.winners_per_type_dict = {}  # Maps amount of winners per type
         self.durations_per_type_dict = {}  # Maps duration of games per type
@@ -233,5 +233,6 @@ class Simulation:
 if __name__ == "__main__":
     b = Board()
     sim = Simulation([Player, Player, LazyPlayer, ResilientPlayer])
-    print(sim.single_game())
-    print(sim.players_per_type_dict)
+    sim.run_simulation(2)
+    sim.run_simulation(2)
+    print(sim.get_results())
