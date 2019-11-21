@@ -1,7 +1,11 @@
 INF200 Exersices:
 =================
 
+<<<<<<< HEAD
 Petter Hetland:
+=======
+Bishnu Poudel:
+>>>>>>> ex_06
 -------------------
 
 This repository contains all the exersices written as part of the
