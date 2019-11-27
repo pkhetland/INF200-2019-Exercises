@@ -1,170 +1,11 @@
 # -*- coding: utf-8 -*-
 
-r"""
-A logistic regression estimator that follows the sklearn API.
--------------------------------------------------------------
-
-In this exersice, you are supposed to implement a simple statistical and
-machine learning model. Namely logistic regression. The way such a model
-works is that you have some function :math:`f` that you wish to learn from
-pairs of measurements, :math:`\mathbf{x}_i` and target values :math:`y_i`.
-
-Disclaimer:
-~~~~~~~~~~~
-If you do not understand the following mathematics, that is ok. You
-can solve the problems by looking at the lecture notes for lecture 10
-and asking your TA or peers for help.
-
-The functions you should implement
-----------------------------------
-
-For this coursework, you must implement the functions required to compute the
-gradient and the gradient descent algorithm. Specifically, you should
-implement the following five functions:
-
-  * ``sigmoid(z)``
-  * ``predict_proba(w, X)``
-  * ``logistic_gradient(w, X, y)``
-  * ``LogisticRegression.__init__(self, max_iter=1000, tol=1e-5, learning_rate=0.01, random_state=None)``
-  * ``LogisticRegression._fit_gradient_descent(self, coef, X, y)``
-  * ``LogisticRegression._has_converged(self, coef, X, y)``
-
-Read the docstring of these functions to understand how you should create
-them.
-
-Also, in the ``__main__`` block, you should add two lines to create and
-fit a logistic regression model to some simulated data.
-
-Note that for the source code, we use the name ``coef`` and ``coef_`` for 
-the regression coefficients, whereas we use the name :math:`w` for
-mathematical expression. This is to follow the standard set by scikit-learn.
-
-Tips for your code
-------------------
-
- * No function should be larger than 5 lines.
- * You don't need any other imported functions than ``numpy.exp`` and
-   ``numpy.linalg.norm``.
- * You will need matrix multiplication (the ``@`` operator).
- * You should use broadcasting (``x[:, np.newaxis]``), although the problem
-   can be solved without it.
- * Look at the attributes field of the ``LogisticRegression`` docstring
-   to see which attributes you should assign in the ``__init__`` method.
-
-Some theoretical background
----------------------------
-
-Motivation:
-~~~~~~~~~~~~
-
-In our case, the dataset may represent urine samples that we screen for
-an infection. The :math:`\mathbf{x}_i` measurements may represent metabolomic
-measurements (quantities of different key molecules) and :math:`y_i` is
-equal to 1 if the patient has the disease we are screening for and is equal
-to 0 otherwise.
-
-Those of you familiar with statistics might realise that this problem is
-well suited for logistic regression, where we assume that we can find a
-function
-
-.. math::
-
-    p(\mathbf{x}; \mathbf{w}) = \frac{1}{1 + exp(-\mathbf{x}_i^T \mathbf{w})},
-
-that gives us the probability of a patient being diseased or not. Our goal
-is therefore to find a vector :math:`\mathbf{w}` so that 
-:math:`p(\mathbf{x}_i)` is close to 1 if :math:`y_i=1` and close to 0 if 
-:math:`y_i=0`.
-
-Notation:
-~~~~~~~~~~~~~
-
-In the following paragraphs, it is useful to have the following notation
-
-.. math::
-
-    \hat{y}_i = p(\mathbf{x}; \mathbf{w})
-
-Cost function:
-~~~~~~~~~~~~~~
-To find the function :math:`p`, we create a *cost function* 
-:math:`C(\mathbf{w}; \mathbf{X}, \mathbf{y})` that takes the regression
-coefficients, the data matrix and the true labels in as input, and tells us
-how poorly our model performs with the given regression coefficients,
-:math:`\mathbf{w}`. Intuitively, we say that it tells us the 
-*missprediction-cost* of the regression coefficients. Our goal is then to
-find a set of regression coefficients that minimises this cost.
-
-If you are good at statistics, you might realise that a good cost function
-for this problem is one on the following form:
-
-.. math::
-
-    C(\mathbf{w}; \mathbf{X}, \mathbf{y}) = -\sum_i y_i log(p(\mathbf{x}_i; \mathbf{w})) + (1-y_i) log(1 - p(\mathbf{x}_i; \mathbf{w})),
-
-which, with the notation above, becomes
-
-.. math::
-
-    C(\mathbf{w}; \mathbf{X}, \mathbf{y}) = -\sum_i y_i log(\hat{y}_i) + (1 - y_i) log(1 - \hat{y}_i).
-
-Finding the best model:
-~~~~~~~~~~~~~~~~~~~~~~~
-
-Now, we wish to find the :math:`\mathbf{w}` that minimise the cost function
-above. To do that, we use *gradient descent*, which we learned about in
-lecture 10. This optimisation algorithm works by iteratively modifying
-:math:`\mathbf{w}` until we have a good guess for the best set of coefficients,
-:math:`\mathbf{w}`.
-
-The way gradient descent works is by realising that the gradient of a function,
-
-.. math::
-
-    \nabla_w C(\mathbf{w}; \mathbf{X}, \mathbf{y}),
-
-is the "direction" in which the cost function changes the most rapidly. Thus,
-if we want to make the small change in :math:`\mathbf{w}` that has the maximum
-effect on the value of :math:`C`, then we update it the following way
-
-.. math::
-
-    \mathbf{w}^{\text{new}} = w - \eta \nabla_w C(\mathbf{w}; \mathbf{X}, \mathbf{y}),
-
-where :math:`\mathbf{w}^{\text{new}}` is the new guess for a good set of 
-regression coefficients and :math:`\eta` is a parameter that specifies how 
-large the change in :math:`w` can be.
-
-The difficult part of implementing the gradient descent algorithm is, in
-other words, to compute the gradient of the cost function. Luckily, this is
-not too complicated in the case of logistic regression. Here, the gradient
-is given by
-
-.. math::
-
-    \nabla_w C(\mathbf{w}; \mathbf{X}, \mathbf{y}) = \sum_i \mathbf{x}_i (y_i - \hat{y}_i).
-
-Final note
-----------
-
-You may wonder why some of the methods start with a single leading underscore.
-In Python, all attributes of a class can be accessed from code outside the
-class. However, sometimes, we wish to hide the implementation details. The
-leading underscore is a way to tell other developers that this method is not
-relevant unless you are actively modifying or inheriting from the class. If
-you simply use instances of a class, then you shouldn't worry about (or use)
-them.
-
-Code
-----
-"""
-
-
-__author__ = "Yngve Mardal Moe"
-__email__ = "yngve.m.moe@gmail.com"
+__author__ = "Petter Hetland"
+__email__ = "pehe@nmbu.no"
 
 
 import numpy as np
+from numpy import exp
 from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn.exceptions import NotFittedError
 from sklearn.utils import check_random_state, check_X_y
@@ -190,8 +31,8 @@ def sigmoid(z):
     sigmoidal_transformed_z : np.ndarray
         Transformed input.
     """
-    # Your code here
-    pass
+    sigmoidal_transformed_z = 1 / (1 + np.exp(-z))
+    return sigmoidal_transformed_z
 
 
 def predict_proba(coef, X):
@@ -223,8 +64,9 @@ def predict_proba(coef, X):
     p : np.ndarray(shape(n,))
         The predicted class probabilities.
     """
-    # Your code here
-    pass
+    p = sigmoid((X @ coef))
+
+    return p
 
 
 def logistic_gradient(coef, X, y):
@@ -234,14 +76,16 @@ def logistic_gradient(coef, X, y):
 
     .. math::
 
-        \nabla_w L(\mathbf{w}; X, \mathbf{y}) = \sum_i \mathbf{x}_i (y_i - \hat{y}_i),
+        \nabla_w L(\mathbf{w}; X, \mathbf{y}) = \sum_i \mathbf{x}_i (y_i - \hat
+        {y}_i),
 
     or, elementwise,
 
     .. math::
 
-        \left[\nabla_w L(\mathbf{w}; X, \mathbf{y})\right]_j = \frac{\partial L}{\partial w_j}
-                                                             = \sum_i X_{ij} (y_i - \hat{y}_i),
+        \left[\nabla_w L(\mathbf{w}; X, \mathbf{y})\right]_j = \frac{\partial
+        L}{\partial w_j}
+                                     = \sum_i X_{ij} (y_i - \hat{y}_i),
 
     where :math:`\hat{y}_i` is the predicted value for data point
     :math:`i` and is given by :math:`\sigma(x_i^Tw)`, where
@@ -262,8 +106,11 @@ def logistic_gradient(coef, X, y):
         The gradient of the cross entropy loss related to the linear
         logistic regression model.
     """
-    # Your code here
-    pass
+    y_hat = sigmoid(X @ coef)
+    residual = y_hat - y
+
+    gradient = X.T @ residual
+    return gradient
 
 
 class LogisticRegression(BaseEstimator, ClassifierMixin):
@@ -300,9 +147,7 @@ class LogisticRegression(BaseEstimator, ClassifierMixin):
         A numpy random state object or a seed for a numpy random state object.
     """
 
-    def __init__(
-        self, max_iter=1000, tol=1e-5, learning_rate=0.01, random_state=None
-    ):
+    def __init__(self, max_iter=1000, tol=1e-5, learning_rate=0.01, random_state=None):
         """Initialise a logistic regression instance.
 
         The ``__init__`` method of scikit-learn estimators should not do any
@@ -319,10 +164,13 @@ class LogisticRegression(BaseEstimator, ClassifierMixin):
         learning_rate : float (default=0.01)
             The step-size for the gradient descent updates.
         random_state : np.random.random_state or int or None (default=None)
-            A numpy random state object or a seed for a numpy random state object.
+            A numpy random state object or a seed for a numpy random state
+            object.
         """
-        # Your code here
-        pass
+        self.max_iter = max_iter
+        self.tol = tol
+        self.learning_rate = learning_rate
+        self.random_state = random_state
 
     def _has_converged(self, coef, X, y):
         r"""Whether the gradient descent algorithm has converged.
@@ -353,8 +201,9 @@ class LogisticRegression(BaseEstimator, ClassifierMixin):
         has_converged : bool
             True if the convergence criteria above is met, False otherwise.
         """
-        # Your code here
-        pass
+        gradient_norm = np.linalg.norm(logistic_gradient(coef, X, y))
+
+        return gradient_norm < self.tol
 
     def _fit_gradient_descent(self, coef, X, y):
         r"""Fit the logisitc regression model to the data given initial weights
@@ -364,7 +213,8 @@ class LogisticRegression(BaseEstimator, ClassifierMixin):
 
         .. math::
 
-            \mathbf{w}^{(k)} \gets \mathbf{w}^{(k-1)} - \eta \nabla L(\mathbf{w}^{(k-1)}; X, \mathbf{y}),
+            \mathbf{w}^{(k)} \gets \mathbf{w}^{(k-1)} - \eta \nabla L(\mathbf
+            {w}^{(k-1)}; X, \mathbf{y}),
 
         where :math:`\mathbf{w}^{(k)}` is the coefficient vector at iteration 
         ``k``, :math:`\mathbf{w}^{(k-1)}` is the coefficient vector at 
@@ -391,12 +241,19 @@ class LogisticRegression(BaseEstimator, ClassifierMixin):
         coef : np.ndarray(shape=(n,))
             The logistic regression weights
         """
-        # Your code here
-        pass
+        coef_ = coef
+
+        for _ in range(self.max_iter):
+            coef_ = coef_ - self.learning_rate * logistic_gradient(coef_, X, y)
+
+            if self._has_converged(coef_, X, y):
+                print("The model has converged!")
+                break
+
+        return coef_
 
     def fit(self, X, y):
         """Fit a logistic regression model to the data.
-
         Parameters
         ----------
         X : np.ndarray(shape=(n, r))
@@ -416,9 +273,9 @@ class LogisticRegression(BaseEstimator, ClassifierMixin):
         # np.ranom, but its sequence of random numbers is not affected
         # by calls to np.random.
         random_state = check_random_state(self.random_state)
-        coef = random_state.standard_normal(X.shape[1])
+        coef_guess = random_state.standard_normal(X.shape[1])
 
-        self.coef_ = self._fit_gradient_descent(coef, X, y)
+        self.coef_ = self._fit_gradient_descent(coef_guess, X, y)
         return self
 
     def predict_proba(self, X):
@@ -485,8 +342,9 @@ if __name__ == "__main__":
     y = predict_proba(coef, X) > 0.5
 
     # Fit a logistic regression model to the X and y vector
-    # Fill in your code here.
     # Create a logistic regression object and fit it to the dataset
+    lr_model = LogisticRegression()
+    lr_model.fit(X, y)
 
     # Print performance information
     print(f"Accuracy: {lr_model.score(X, y)}")
