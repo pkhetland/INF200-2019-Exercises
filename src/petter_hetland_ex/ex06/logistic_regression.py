@@ -147,7 +147,8 @@ class LogisticRegression(BaseEstimator, ClassifierMixin):
         A numpy random state object or a seed for a numpy random state object.
     """
 
-    def __init__(self, max_iter=1000, tol=1e-5, learning_rate=0.01, random_state=None):
+    def __init__(self, max_iter=1000, tol=1e-5, learning_rate=0.01,
+                 random_state=None):
         """Initialise a logistic regression instance.
 
         The ``__init__`` method of scikit-learn estimators should not do any
